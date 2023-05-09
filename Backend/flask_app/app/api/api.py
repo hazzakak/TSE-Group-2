@@ -1,6 +1,7 @@
 import json
 
 from flask import current_app, request
+import flask
 from app.api import bp
 from app.models.db_models import en, sc, wa, ni
 
@@ -55,7 +56,9 @@ def api_data_max_values():
             "max_highTemp": ni_response.maxHighTemp
         }
     }
-    return rtn_json
+    resp = flask.jsonify(rtn_json)
+    resp.headers.add('Access-Control-Allow-Origin', '*')
+    return resp
 
 @bp.route('/api/data_year_averages')
 def api_data_year_averages():
@@ -100,7 +103,9 @@ def api_data_year_averages():
             "highTemp": ni_response.avgHighTemp
         }
     }
-    return rtn_json
+    resp = flask.jsonify(rtn_json)
+    resp.headers.add('Access-Control-Allow-Origin', '*')
+    return resp
 
 @bp.route('/api/data_full_year_values')
 def api_data_full_year_averages():
@@ -194,7 +199,7 @@ def api_data_full_year_averages():
             "nov": db_obj.novLowTemp,
             "dec": db_obj.decLowTemp
         }
-
-        
     }
-    return rtn_json
+    resp = flask.jsonify(rtn_json)
+    resp.headers.add('Access-Control-Allow-Origin', '*')
+    return resp
